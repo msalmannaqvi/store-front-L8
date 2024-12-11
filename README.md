@@ -11,6 +11,59 @@ This is a Vue.js app that simulates a store front. It is meant to be used in con
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
+
+### Complete Set of Commands for CENTOS stream 9
+# Add the Node.js 18.x repository
+curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
+
+# Install Node.js and npm
+sudo dnf install -y nodejs
+
+# Verify installation
+node -v
+npm -v
+# Install Vue CLI globally
+sudo npm install -g @vue/cli
+
+# Verify installation
+vue --version
+
+# Remove any older versions of Docker
+sudo dnf remove -y docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine
+
+# Set up the Docker repository
+sudo dnf -y install dnf-plugins-core
+sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+# Install Docker Engine
+sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Start and enable Docker
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Verify installation
+docker --version
+
+# Download the latest version of Docker Compose
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+# Apply executable permissions
+sudo chmod +x /usr/local/bin/docker-compose
+
+# Verify installation
+docker-compose --version
+
+# Add Docker to Non-root Users (Optional) but highly recomended
+
+# Add your user to the Docker group
+sudo usermod -aG docker $USER
+
+# Apply the group changes
+newgrp docker
+
+
+
 ### Running the app
 
 The app relies on the product-service and the order-service and the rabbitmq instance running. A docker-compose file is provided to make this easy.
